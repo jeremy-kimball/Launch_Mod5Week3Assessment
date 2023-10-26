@@ -24,6 +24,7 @@ namespace JeffersonCountyLibrary.Controllers
         }
 
         // GET: Books/Create
+        [Authorize(Roles = "Librarian")]
         public IActionResult Create()
         {
             ViewData["BranchId"] = new SelectList(_context.Branches, "Id", "Id");
@@ -34,6 +35,7 @@ namespace JeffersonCountyLibrary.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Librarian")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
@@ -44,6 +46,7 @@ namespace JeffersonCountyLibrary.Controllers
             return RedirectToAction("Details", "Branches", new { id = book.BranchId });
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult CheckOut(int? id)
         {
